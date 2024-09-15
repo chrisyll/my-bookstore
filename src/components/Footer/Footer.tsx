@@ -9,9 +9,7 @@ const FooterContainer = styled.div`
   background-color: #f1f1f1;
   margin: 8px 0;
   height: 96px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
 `;
 
 export { Footer };

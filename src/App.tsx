@@ -1,28 +1,22 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import styled from "styled-components";
-import { BookPreview } from "./components/BookPreview";
-
-const router = createBrowserRouter([
-  { path: "/", element: <Navigate to={"/home"} /> },
-  { path: "/home", element: <div></div> },
-  { path: "/home/:bookCategory/:bookName", element: <div></div> },
-  { path: "/home/book/add", element: <div></div> },
-  { path: "/home/search", element: <div></div> },
-]);
+import { SearchPage } from "./components/SearchPage/SearchPage";
 
 const App = () => {
   return (
     <AppContainer>
       <Header />
       <ContentContainer>
-        <RouterProvider router={router} />
-        <BookPreview />
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<div></div>} />
+          <Route path="/home/:bookCategory/:bookTitle" element={<div></div>} />
+          <Route path="/home/book/add" element={<div></div>} />
+          <Route path="/home/search" element={<SearchPage />} />
+          <Route path="*" element={<Navigate to="/home" />} />
+        </Routes>
       </ContentContainer>
       <Footer />
     </AppContainer>
@@ -41,4 +35,6 @@ const AppContainer = styled.div`
 
 const ContentContainer = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
