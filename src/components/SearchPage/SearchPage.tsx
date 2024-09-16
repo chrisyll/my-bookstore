@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { BookPreview } from "../BookPreview";
+import { BookPreview } from "../BookPage/BookPreview";
 import { Spinner } from "../Spinner/Spinner";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { Filters, getAvailableFilters } from "../../utils/filters";

@@ -11,6 +11,17 @@ const capitalizePath = (path: string) => {
 
 const Header = () => {
   const path = useLocation().pathname;
+
+  const getHeader = (path: string) => {
+    switch (path) {
+      case "/home/search":
+        return "Search to find your new book";
+      case "/home/book/add":
+        return "Add new Book";
+      default:
+        return "";
+    }
+  };
   return (
     <div>
       <HeaderContainer>
@@ -18,7 +29,7 @@ const Header = () => {
       </HeaderContainer>
       <PageHeaderContainer>
         <PathContainer>{capitalizePath(path)}</PathContainer>
-        <HeadlineContainer>Search to find your new book</HeadlineContainer>
+        <HeadlineContainer>{getHeader(path)}</HeadlineContainer>
       </PageHeaderContainer>
     </div>
   );
