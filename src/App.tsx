@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer/Footer";
 import styled from "styled-components";
 import { SearchPage } from "./components/SearchPage/SearchPage";
 import { AddBookPage } from "./components/AddBookPage/AddBookPage";
+import { BookPage } from "./components/BookPage/BookPage";
 
 const App = () => {
   return (
@@ -12,7 +13,7 @@ const App = () => {
       <ContentContainer>
         <Routes>
           <Route path="/" element={<Navigate to="/home/search" />} />
-          <Route path="/home/:bookCategory/:bookTitle" element={<div></div>} />
+          <Route path="/home/:bookCategory/:bookTitle" element={<BookPage />} />
           <Route path="/home/book/add" element={<AddBookPage />} />
           <Route path="/home/search" element={<SearchPage />} />
           <Route path="*" element={<Navigate to="/home/search" />} />

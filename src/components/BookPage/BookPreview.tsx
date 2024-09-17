@@ -1,37 +1,38 @@
 import styled from "styled-components";
 import { MdOutlineStarBorder, MdStar } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { Book } from "../../hooks/useFetchBooks";
 
 interface BookPreviewProps {
-  bookImgURL?: string;
-  bookTitle: string;
-  bookRating?: number;
+  book: Book;
   showRating?: boolean;
+  smallHeight?: boolean;
 }
 
-const BookPreview = ({
-  bookImgURL,
-  bookTitle,
-  bookRating,
-  showRating,
-}: BookPreviewProps) => {
+const BookPreview = ({ book, showRating, smallHeight }: BookPreviewProps) => {
+  const navigate = useNavigate();
+
   return (
-    <BookPreviewContainer>
+    <BookPreviewContainer
+      onClick={() => navigate(`/home/${book.categories[0]}/${book.title}`)}
+      $smallHeight={smallHeight}
+    >
       <BookContent>
         <ImageContainer>
-          {bookImgURL ? (
-            <StyledImage src={bookImgURL} alt={bookTitle} />
+          {book ? (
+            <StyledImage src={book.imageURL} alt={book.title} />
           ) : (
-            <TextImage>Image</TextImage>
+            <TextImage>Image not found</TextImage>
           )}
         </ImageContainer>
-        <TitleContainer title={bookTitle ?? "Title"}>
-          {bookTitle ?? "Title"}
+        <TitleContainer title={book.title ?? "Title"}>
+          {book?.title ?? "Title"}
         </TitleContainer>
       </BookContent>
       {showRating && (
         <RatingsContainer>
           {[...Array(5)].map((_, index) =>
-            bookRating && index < bookRating ? (
+            book?.rating && index < book?.rating ? (
               <MdStar color="#FFD700" size={22} key={`star-${index}`} />
             ) : (
               <MdOutlineStarBorder
@@ -49,9 +50,9 @@ const BookPreview = ({
 
 export { BookPreview };
 
-const BookPreviewContainer = styled.div`
+const BookPreviewContainer = styled.div<{ $smallHeight?: boolean }>`
   width: 100%;
-  height: 280px;
+  height: ${(props) => (!props.$smallHeight ? "280px" : "unset")};
   display: flex;
   flex-direction: column;
   align-items: center;

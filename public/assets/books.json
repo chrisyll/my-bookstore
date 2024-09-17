@@ -1,8 +1,8 @@
 {
   "books": [
     {
-      "isbn-10": "1593279507",
-      "isbn-13": "9781593279509",
+      "isbn10": "1593279507",
+      "isbn13": "9781593279509",
       "title": "Eloquent JavaScript, Third Edition",
       "author": ["Marijn Haverbeke"],
       "published": "2018",
@@ -19,8 +19,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "1491943532",
-      "isbn-13": "9781491943533",
+      "isbn10": "1491943532",
+      "isbn13": "9781491943533",
       "title": "Practical Modern JavaScript",
       "author": ["Nicolás Bevacqua"],
       "published": "2017",
@@ -37,8 +37,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "1593277570",
-      "isbn-13": "9781593277574",
+      "isbn10": "1593277570",
+      "isbn13": "9781593277574",
       "title": "Understanding ECMAScript 6",
       "author": ["Nicholas C. Zakas"],
       "published": "2016",
@@ -55,8 +55,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "1449365030",
-      "isbn-13": "9781449365035",
+      "isbn10": "1449365030",
+      "isbn13": "9781449365035",
       "title": "Speaking JavaScript",
       "author": ["Axel Rauschmayer"],
       "published": "2014",
@@ -73,8 +73,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "1449331816",
-      "isbn-13": "9781449331818",
+      "isbn10": "1449331816",
+      "isbn13": "9781449331818",
       "title": "Learning JavaScript Design Patterns",
       "author": ["Addy Osmani"],
       "published": "2012",
@@ -91,8 +91,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "8602477423",
-      "isbn-13": "9798602477429",
+      "isbn10": "8602477423",
+      "isbn13": "9798602477429",
       "title": "You Don't Know JS Yet",
       "author": ["Kyle Simpson"],
       "published": "2020",
@@ -109,8 +109,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "1484200761",
-      "isbn-13": "9781484200766",
+      "isbn10": "1484200761",
+      "isbn13": "9781484200766",
       "title": "Pro Git",
       "author": ["Scott Chacon", "Ben Straub"],
       "published": "2014",
@@ -127,8 +127,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "1484242218",
-      "isbn-13": "9781484242216",
+      "isbn10": "1484242218",
+      "isbn13": "9781484242216",
       "title": "Rethinking Productivity in Software Engineering",
       "author": ["Caitlin Sadowski", "Thomas Zimmermann"],
       "published": "2019",
@@ -145,8 +145,8 @@
       "rating": 1
     },
     {
-      "isbn-10": "0134685997",
-      "isbn-13": "9780134685991",
+      "isbn10": "0134685997",
+      "isbn13": "9780134685991",
       "title": "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
       "author": ["Robert C. Martin"],
       "published": "2017",
@@ -163,8 +163,8 @@
       "rating": 5
     },
     {
-      "isbn-10": "1491950358",
-      "isbn-13": "9781491950357",
+      "isbn10": "1491950358",
+      "isbn13": "9781491950357",
       "title": "Site Reliability Engineering: How Google Runs Production Systems",
       "author": [
         "Niall Richard Murphy",
@@ -181,8 +181,8 @@
       "rating": 4
     },
     {
-      "isbn-10": "0132350882",
-      "isbn-13": "9780132350884",
+      "isbn10": "0132350882",
+      "isbn13": "9780132350884",
       "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
       "author": ["Robert C. Martin"],
       "published": "2008",

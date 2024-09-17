@@ -98,12 +98,7 @@ const SearchPage = () => {
       <ItemsContainer>
         {filteredBooks.map((book, index) => (
           <BookItem key={index}>
-            <BookPreview
-              showRating
-              bookRating={book.rating}
-              bookTitle={book.title}
-              bookImgURL={book.imageURL || undefined}
-            />
+            <BookPreview showRating book={book} />
           </BookItem>
         ))}
       </ItemsContainer>
