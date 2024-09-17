@@ -1,17 +1,14 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-const capitalizePath = (path: string) => {
-  return path
+const Header = () => {
+  const path = useLocation().pathname;
+  const capitalizedPath = path
     .split("/")
     .filter(Boolean)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" / ")
     .replace(/%20/g, " ");
-};
-
-const Header = () => {
-  const path = useLocation().pathname;
 
   const getHeader = (path: string) => {
     switch (path) {
@@ -29,7 +26,7 @@ const Header = () => {
         <HeaderText>Bookstore</HeaderText>
       </HeaderContainer>
       <PageHeaderContainer>
-        <PathContainer>{capitalizePath(path)}</PathContainer>
+        <PathContainer>{capitalizedPath}</PathContainer>
         <HeadlineContainer>{getHeader(path)}</HeadlineContainer>
       </PageHeaderContainer>
     </div>

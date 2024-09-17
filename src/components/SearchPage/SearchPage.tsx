@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { BookPreview } from "../BookPage/BookPreview";
 import { Spinner } from "../Spinner/Spinner";
@@ -28,29 +28,35 @@ const SearchPage = () => {
     left: number;
   } | null>(null);
 
-  const handleShowFiltersDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { top, left } = e.currentTarget.getBoundingClientRect();
-    setDropdownPosition({ top: top + 24, left: left });
-    setShowDropdown(!showDropdown);
-  };
+  const handleShowFiltersDropdown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const { top, left } = e.currentTarget.getBoundingClientRect();
+      setDropdownPosition({ top: top + 24, left: left });
+      setShowDropdown(!showDropdown);
+    },
+    [setDropdownPosition, setShowDropdown, showDropdown]
+  );
 
-  const handleFiltersChange = (filterType: keyof Filters, value: string) => {
-    setActiveFilters((prev) => {
-      const filters = prev[filterType];
-      let updatedFilters;
+  const handleFiltersChange = useCallback(
+    (filterType: keyof Filters, value: string) => {
+      setActiveFilters((prev) => {
+        const filters = prev[filterType];
+        let updatedFilters;
 
-      if (filters.includes(value)) {
-        updatedFilters = filters.filter((filter) => filter !== value);
-      } else {
-        updatedFilters = [...filters, value];
-      }
+        if (filters.includes(value)) {
+          updatedFilters = filters.filter((filter) => filter !== value);
+        } else {
+          updatedFilters = [...filters, value];
+        }
 
-      return {
-        ...prev,
-        [filterType]: updatedFilters,
-      };
-    });
-  };
+        return {
+          ...prev,
+          [filterType]: updatedFilters,
+        };
+      });
+    },
+    [setActiveFilters]
+  );
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
