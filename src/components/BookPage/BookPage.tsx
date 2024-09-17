@@ -19,7 +19,7 @@ const BookPage = () => {
   } = useFetchSimilarBooks(book?.categories ?? []);
 
   if (!book) {
-    return <>ERROR</>;
+    return <ErrorMessage error="Something went wrong" />;
   }
 
   if (loading) {
