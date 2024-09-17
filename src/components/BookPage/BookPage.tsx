@@ -1,4 +1,3 @@
-import { MdStar, MdOutlineStarBorder } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import authorIcon from "../../images/author_icon.png";
@@ -7,9 +6,19 @@ import { useFetchSimilarBooks } from "../../hooks/useFetchSimilarBooks";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { Spinner } from "../Spinner/Spinner";
 import { useFetchBook } from "../../hooks/useFetchBook";
+import { RatingStars } from "../RatingStars/RatingStars";
 
+/**
+ * Represents a component that displays detailed information about
+ * a specific book
+ *
+ * @returns {JSX.Element}
+ */
 const BookPage = () => {
+  //GET URL PARAMS
   const { bookCategory = "", bookTitle = "" } = useParams();
+
+  //GET CORRESPONDING BOOK
   const { book, loading, error } = useFetchBook(bookTitle, bookCategory);
 
   const {
@@ -42,17 +51,7 @@ const BookPage = () => {
             <AuthorName>{book.author}</AuthorName>
           </AuthorSection>
           <RatingsContainer>
-            {[...Array(5)].map((_, index) =>
-              book.rating && index < book.rating ? (
-                <MdStar color="#FFD700" size={40} key={`star-${index}`} />
-              ) : (
-                <MdOutlineStarBorder
-                  color="#9f9f9f"
-                  size={40}
-                  key={`outlined-star-${index}`}
-                />
-              )
-            )}
+            <RatingStars rating={book.rating} />
           </RatingsContainer>
         </ImageSection>
         <DetailsSection>

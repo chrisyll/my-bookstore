@@ -1,6 +1,15 @@
 import { Filters } from "./filters";
 import { Book } from "../hooks/useFetchBooks";
 
+/**
+ * Filters a list of books based on search input and active filters
+ *
+ * @param {Book[]} books - The array of books to be filtered
+ * @param {string} searchInput - The search input string used to filter books by title
+ * @param {Filters} activeFilters - The active filters including category, year, and publisher
+ *
+ * @returns {Book[]} - An array of books filtered according to the search input and active filters
+ */
 const filterBooks = (
   books: Book[],
   searchInput: string,
@@ -9,6 +18,7 @@ const filterBooks = (
   const searchInputFilteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(searchInput.toLowerCase())
   );
+
   const filteredBooks = searchInputFilteredBooks.filter((book) => {
     const categoryMatches =
       activeFilters.category.length === 0 ||

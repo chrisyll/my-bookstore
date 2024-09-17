@@ -2,12 +2,25 @@ import styled from "styled-components";
 import { FilterType, Filters } from "../../utils/filters";
 
 interface FiltersDropdownProps {
+  /** Position of the dropdown menu*/
   dropdownPosition: { top: number; left: number } | null;
+
+  /** Object containing the available filters for each filter type */
   dropdownFilters: Filters;
+
+  /** Object containing the currently active filters */
   activeFilters: Filters;
+
+  /** Callback function to handle changes in filter selection */
   onChange: (filterType: keyof Filters, value: string) => void;
 }
 
+/**
+ * Represents a component that renders a dropdown menu that allows users to select filters
+ *
+ * @param {FiltersDropdownProps} props - The properties for the FiltersDropdown component
+ * @returns {JSX.Element}
+ */
 const FiltersDropdown = ({
   dropdownPosition,
   dropdownFilters,

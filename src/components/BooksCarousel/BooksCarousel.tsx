@@ -6,9 +6,16 @@ import { BookPreview } from "../BookPage/BookPreview";
 import styled from "styled-components";
 
 interface BooksCarouselProps {
+  /** The books displayed in the carousel */
   books: Book[];
 }
 
+/**
+ * Represents a carousel component that contains books previews
+ *
+ * @param {BooksCarouselProps} - The properties for the BooksCarousel component
+ * @returns {JSX.Element}
+ */
 const BooksCarousel = ({ books }: BooksCarouselProps) => {
   const responsive = {
     0: { items: 1 },

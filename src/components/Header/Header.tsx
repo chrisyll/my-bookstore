@@ -1,6 +1,11 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+/**
+ * Represents a header component
+ *
+ * @returns {JSX.Element}
+ */
 const Header = () => {
   const path = useLocation().pathname;
   const capitalizedPath = path
@@ -10,7 +15,8 @@ const Header = () => {
     .join(" / ")
     .replace(/%20/g, " ");
 
-  const getHeader = (path: string) => {
+  //GET HEADLINE OF HEADER ACCORDING TO URL PATH
+  const getHeadline = (path: string) => {
     switch (path) {
       case "/home/search":
         return "Search to find your new book";
@@ -27,7 +33,7 @@ const Header = () => {
       </HeaderContainer>
       <PageHeaderContainer>
         <PathContainer>{capitalizedPath}</PathContainer>
-        <HeadlineContainer>{getHeader(path)}</HeadlineContainer>
+        <HeadlineContainer>{getHeadline(path)}</HeadlineContainer>
       </PageHeaderContainer>
     </div>
   );

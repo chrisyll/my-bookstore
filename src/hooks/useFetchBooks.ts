@@ -14,13 +14,12 @@ interface Book {
   rating: number;
 }
 
-interface UseFetchBooksResult {
-  books: Book[];
-  loading: boolean;
-  error: string | null;
-}
-
-const useFetchBooks = (): UseFetchBooksResult => {
+/**
+ * Custom hook to fetch all books
+ *
+ * @returns  {Object} - The books, loading status, and error message
+ */
+const useFetchBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

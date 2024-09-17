@@ -8,26 +8,40 @@ import { FiltersDropdown } from "./FiltersDropdown";
 import { filterBooks } from "../../utils/filterBooks";
 import { useFetchBooks } from "../../hooks/useFetchBooks";
 
+/**
+ * Represents a component that provides funcionality
+ * to search for books and filter them
+ *
+ * @returns {JSX.Element}
+ */
 const SearchPage = () => {
   const { books, loading, error } = useFetchBooks();
+
+  //SEARCH INPUT STATE
   const [searchInput, setSearchInput] = useState("");
+
+  //FILTER STATE
   const [activeFilters, setActiveFilters] = useState<Filters>({
     category: [],
     year: [],
     publisher: [],
   });
+
+  //LIST OF FILTERED BOOKS
   const filteredBooks = useMemo(
     () => filterBooks(books, searchInput, activeFilters),
     [books, searchInput, activeFilters]
   );
 
   const dropdownFilters: Filters = getAvailableFilters();
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<{
     top: number;
     left: number;
   } | null>(null);
 
+  //TOGGLE VISIBILITY OF DROPDOWN && SET ITS POSITION
   const handleShowFiltersDropdown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       const { top, left } = e.currentTarget.getBoundingClientRect();
@@ -37,6 +51,7 @@ const SearchPage = () => {
     [setDropdownPosition, setShowDropdown, showDropdown]
   );
 
+  //UPDATE ACTIVE FILTERS
   const handleFiltersChange = useCallback(
     (filterType: keyof Filters, value: string) => {
       setActiveFilters((prev) => {

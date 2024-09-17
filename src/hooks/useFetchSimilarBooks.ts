@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { Book } from "./useFetchBooks";
 
-const useFetchSimilarBooks = (selectedCategories: string[]) => {
+/**
+ * Custom hook to fetch all books with similar categories
+ *
+ * @param {string[]} categories - The categories to search for in books
+ * @returns  {Object} - The books, loading status, and error message
+ */
+const useFetchSimilarBooks = (categories: string[]) => {
   const [similarBooks, setSimilarBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,9 +19,7 @@ const useFetchSimilarBooks = (selectedCategories: string[]) => {
       const data = await response.json();
 
       const filteredBooks = data.books.filter((book: Book) =>
-        book.categories.some((category) =>
-          selectedCategories.includes(category)
-        )
+        book.categories.some((category) => categories.includes(category))
       );
 
       setSimilarBooks(filteredBooks);
@@ -32,7 +36,7 @@ const useFetchSimilarBooks = (selectedCategories: string[]) => {
 
   useEffect(() => {
     fetchBooks();
-  }, [selectedCategories]);
+  }, [categories]);
 
   return { similarBooks, loading, error };
 };

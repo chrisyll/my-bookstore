@@ -1,14 +1,26 @@
 import styled from "styled-components";
-import { MdOutlineStarBorder, MdStar } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Book } from "../../hooks/useFetchBooks";
+import { RatingStars } from "../RatingStars/RatingStars";
 
 interface BookPreviewProps {
+  /** The book data displayed in the preview */
   book: Book;
+
+  /** Determines if the rating stars should be displayed */
   showRating?: boolean;
+
+  /** Determines if the height of the book preview should be smaller */
   smallHeight?: boolean;
 }
 
+/**
+ * Represents a component that represents a preview of a book
+ * When clicked, it navigates to the book's details page
+ *
+ * @param {BookPreviewProps} props - The properties for the BookPreview component
+ * @returns {JSX.Element}
+ */
 const BookPreview = ({ book, showRating, smallHeight }: BookPreviewProps) => {
   const navigate = useNavigate();
 
@@ -31,17 +43,7 @@ const BookPreview = ({ book, showRating, smallHeight }: BookPreviewProps) => {
       </BookContent>
       {showRating && (
         <RatingsContainer>
-          {[...Array(5)].map((_, index) =>
-            book?.rating && index < book?.rating ? (
-              <MdStar color="#FFD700" size={22} key={`star-${index}`} />
-            ) : (
-              <MdOutlineStarBorder
-                color="#9f9f9f"
-                size={22}
-                key={`outlined-star-${index}`}
-              />
-            )
-          )}
+          <RatingStars rating={book.rating} />
         </RatingsContainer>
       )}
     </BookPreviewContainer>

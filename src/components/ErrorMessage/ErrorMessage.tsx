@@ -1,9 +1,16 @@
 import styled from "styled-components";
 
 interface ErrorMessageProps {
+  /** Error message to be displayed */
   error?: string;
 }
 
+/**
+ * Represents a component that displays an error message
+ *
+ * @param {ErrorMessageProps} - The properties for the ErrorMessage component
+ * @returns {JSX.Element}
+ */
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
   return <ErrorMessageContainer>{error}</ErrorMessageContainer>;
 };

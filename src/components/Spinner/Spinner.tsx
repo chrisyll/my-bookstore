@@ -1,6 +1,11 @@
 import { PulseLoader } from "react-spinners";
 import styled from "styled-components";
 
+/**
+ * Represents a component that displays a spinner
+ *
+ * @returns {JSX.Element}
+ */
 const Spinner = () => {
   return (
     <LoadingContainer>

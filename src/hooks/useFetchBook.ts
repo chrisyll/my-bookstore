@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { Book } from "./useFetchBooks";
 
+/**
+ * Custom hook to fetch a single book by its title and category
+ *
+ * @param {string} title - The title of the book to be fetched
+ * @param {string} category - The category of the book to be fetched
+ * @returns {Object} - The book, loading status, and error message
+ */
 const useFetchBook = (title: string, category: string) => {
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);

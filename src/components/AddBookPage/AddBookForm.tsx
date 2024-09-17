@@ -4,8 +4,17 @@ import { BookSchema } from "../../utils/bookSchema";
 import { useRef } from "react";
 import crossIcon from "../../images/circle_outline_cross.png";
 
+/**
+ * Represents a form component to add a new book
+ * Allows multiple books to be added
+ *
+ * @returns {JSX.element}
+ */
 const AddBookForm = () => {
+  //STORE FIELD ARRAY PROPS
   const arrayHelpersRef = useRef<any>(null);
+
+  //STORE IMAGE INPUT REF
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const formInitialValues = {
@@ -40,6 +49,9 @@ const AddBookForm = () => {
               arrayHelpersRef.current = arrayHelpers;
               return (
                 <>
+                  {/* RENDER FORM FOR EACH BOOK ENTRY */}
+                  {/* RENDER FORM FOR EACH BOOK ENTRY */}
+                  {/* RENDER FORM FOR EACH BOOK ENTRY */}
                   {values.forms.map((form, index) => (
                     <FormContainer key={index}>
                       <Column>
@@ -241,11 +253,10 @@ const AddBookForm = () => {
                           <HiddenLabel htmlFor={`forms[${index}].image`}>
                             Image
                           </HiddenLabel>
-                          <input
+                          <ImageInput
                             name={`forms[${index}].image`}
                             type="file"
                             accept=".jpg, .jpeg, .png, .gif"
-                            style={{ display: "none" }}
                             ref={imageInputRef}
                             onChange={(event) => {
                               if (event.target.files?.[0]) {
@@ -446,6 +457,10 @@ const ImageContainer = styled.div`
   align-items: center;
   cursor: pointer;
   margin: 0 auto;
+`;
+
+const ImageInput = styled.input`
+  display: none;
 `;
 
 const TextImage = styled.div`

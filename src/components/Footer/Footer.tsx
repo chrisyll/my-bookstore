@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+/**
+ * Represents a footer component
+ *
+ * @returns {JSX.Element}
+ */
 const Footer = () => {
   return <FooterContainer />;
 };
