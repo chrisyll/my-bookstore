@@ -41,7 +41,7 @@ const AddBookForm = () => {
         console.log("Form submitted with values: ", values);
       }}
     >
-      {({ values, setFieldValue, handleSubmit }) => (
+      {({ values, setFieldValue, handleSubmit, isValid, dirty }) => (
         <StyledForm onSubmit={handleSubmit}>
           <FieldArray
             name="forms"
@@ -351,7 +351,9 @@ const AddBookForm = () => {
               <AddAnotherBookText>Add another book</AddAnotherBookText>
             </AddButtonContainer>
           </AddAnotherBookContainer>
-          <SaveButton type="submit">SAVE</SaveButton>
+          <SaveButton disabled={!isValid || !dirty} type="submit">
+            SAVE
+          </SaveButton>
         </StyledForm>
       )}
     </Formik>
@@ -511,18 +513,18 @@ const AddAnotherBookText = styled.div`
   margin-top: 8px;
 `;
 
-const SaveButton = styled.button`
+const SaveButton = styled.button<{ disabled: boolean }>`
   width: 180px;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #3b4f6a;
+  border: ${(props) => (props.disabled ? "none" : "1px solid #3b4f6a")};
   margin: 64px 0;
-  background-color: #486289;
-  color: white;
-  cursor: pointer;
+  background-color: ${(props) => (props.disabled ? "#e0e0e0" : "#486289")};
+  color: ${(props) => (props.disabled ? "#a9a9a9" : "white")};
+  cursor: ${(props) => !props.disabled && "pointer"};
   transition: all 0.3s ease;
 
-  &: hover {
-    background-color: #5a799c;
+  &:hover {
+    background-color: ${(props) => !props.disabled && "#5a799c"};
   }
 `;

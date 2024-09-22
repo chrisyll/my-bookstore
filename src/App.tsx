@@ -36,12 +36,12 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   margin: 0 auto;
 `;
 
 const ContentContainer = styled.div`
   flex: 1;
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 `;

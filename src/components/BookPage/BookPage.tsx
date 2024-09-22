@@ -107,7 +107,7 @@ const BookPage = () => {
 export { BookPage };
 
 const Container = styled.div`
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
 `;
 
