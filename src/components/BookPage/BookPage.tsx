@@ -7,6 +7,7 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { Spinner } from "../Spinner/Spinner";
 import { useFetchBook } from "../../hooks/useFetchBook";
 import { RatingStars } from "../RatingStars/RatingStars";
+import { BookImageContainer } from "./BookImageContainer";
 
 /**
  * Represents a component that displays detailed information about
@@ -27,10 +28,6 @@ const BookPage = () => {
     error: errorSimilarBooks,
   } = useFetchSimilarBooks(book?.categories ?? []);
 
-  if (!book) {
-    return <ErrorMessage error="Something went wrong" />;
-  }
-
   if (loading) {
     return <Spinner />;
   }
@@ -39,13 +36,15 @@ const BookPage = () => {
     return <ErrorMessage error={error} />;
   }
 
+  if (!book) {
+    return <ErrorMessage error="Something went wrong" />;
+  }
+
   return (
     <Container>
       <ContentWrapper>
         <ImageSection>
-          <ImageContainer>
-            <StyledImage src={book?.imageURL} alt={book.title} />
-          </ImageContainer>
+          <BookImageContainer imageURL={book.imageURL} title={book.title} />
           <AuthorSection>
             <AuthorImage src={authorIcon} alt="Author Icon" />
             <AuthorName>{book.author}</AuthorName>
@@ -58,10 +57,20 @@ const BookPage = () => {
           <Title>{book.title}</Title>
           <Description>{book.description}</Description>
           <ButtonGroup>
-            <StyledButton onClick={() => console.log("FAVORITE")}>
+            <StyledButton
+              onClick={() => console.log("FAVORITE")}
+              $backgroundColor="#f1c40f"
+              $hoverColor="#f39c12"
+              $borderColor="#d4ac0d"
+            >
               Favorite
             </StyledButton>
-            <StyledButton onClick={() => console.log("SHARE")}>
+            <StyledButton
+              onClick={() => console.log("SHARE")}
+              $backgroundColor="#3498db"
+              $hoverColor="#2980b9"
+              $borderColor="#2980b9"
+            >
               Share
             </StyledButton>
           </ButtonGroup>
@@ -112,26 +121,6 @@ const ImageSection = styled.div`
   flex-direction: column;
 `;
 
-const ImageContainer = styled.div`
-  width: 240px;
-  aspect-ratio: 4/5;
-  background-color: #f7f7f7;
-  outline: 2px solid #f7f7f7;
-  border: 2px solid white;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 16px;
-`;
-
-const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-`;
-
 const AuthorSection = styled.div`
   display: flex;
   gap: 16px;
@@ -171,16 +160,22 @@ const ButtonGroup = styled.div`
   margin-bottom: 16px;
 `;
 
-const StyledButton = styled.button`
-  background-color: white;
+const StyledButton = styled.button<{
+  $backgroundColor: string;
+  $hoverColor: string;
+  $borderColor: string;
+}>`
+  background-color: ${(props) => props.$backgroundColor};
+  color: white;
   width: 64px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.$borderColor};
   border-radius: 4px;
   padding: 4px;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #e7e7e7;
+    background-color: ${(props) => props.$hoverColor};
   }
 `;
 
@@ -195,16 +190,18 @@ const BuyButton = styled.button`
   width: 192px;
   padding: 8px;
   box-sizing: border-box;
-  background-color: white;
+  background-color: #e74c3c;
+  color: white;
   border-radius: 4px;
-  border: 1px solid black;
+  border: 1px solid #c0392b;
   margin: 0 auto;
   display: block;
   margin-top: 32px;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #e7e7e7;
+    background-color: #c0392b;
   }
 `;
 

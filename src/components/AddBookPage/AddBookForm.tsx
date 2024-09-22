@@ -351,7 +351,7 @@ const AddBookForm = () => {
               <AddAnotherBookText>Add another book</AddAnotherBookText>
             </AddButtonContainer>
           </AddAnotherBookContainer>
-          <SubmitButton type="submit">SAVE</SubmitButton>
+          <SaveButton type="submit">SAVE</SaveButton>
         </StyledForm>
       )}
     </Formik>
@@ -511,16 +511,18 @@ const AddAnotherBookText = styled.div`
   margin-top: 8px;
 `;
 
-const SubmitButton = styled.button`
+const SaveButton = styled.button`
   width: 180px;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid black;
+  border: 1px solid #3b4f6a;
   margin: 64px 0;
-  background-color: white;
+  background-color: #486289;
+  color: white;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   &: hover {
-    background-color: #c3c3c3;
+    background-color: #5a799c;
   }
 `;

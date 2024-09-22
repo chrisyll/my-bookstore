@@ -191,8 +191,8 @@ const FilterCircle = styled.div`
 const ItemsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  column-gap: 16px;
-  row-gap: 32px;
+  column-gap: 24px;
+  row-gap: 40px;
   margin-top: 64px;
   margin-bottom: 32px;
 `;

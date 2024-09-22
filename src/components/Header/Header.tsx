@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 /**
@@ -8,12 +9,9 @@ import styled from "styled-components";
  */
 const Header = () => {
   const path = useLocation().pathname;
-  const capitalizedPath = path
-    .split("/")
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" / ")
-    .replace(/%20/g, " ");
+  const segments = path.split("/").filter(Boolean);
+
+  const navigate = useNavigate();
 
   //GET HEADLINE OF HEADER ACCORDING TO URL PATH
   const getHeadline = (path: string) => {
@@ -31,17 +29,33 @@ const Header = () => {
       <HeaderContainer>
         <HeaderText>Bookstore</HeaderText>
       </HeaderContainer>
-      <PageHeaderContainer>
-        <PathContainer>{capitalizedPath}</PathContainer>
+      <HeaderInfoContainer>
+        <PathContainer>
+          {segments.map((segment, index) => (
+            <React.Fragment key={index}>
+              <PathSegment
+                onClick={() =>
+                  navigate(`/${segments.slice(0, index + 1).join("/")}`)
+                }
+              >
+                {segment.charAt(0).toUpperCase() +
+                  segment.slice(1).replace(/%20/g, " ")}
+              </PathSegment>
+              {index !== segments.length - 1 && <Separator>/</Separator>}
+            </React.Fragment>
+          ))}
+        </PathContainer>
         <HeadlineContainer>{getHeadline(path)}</HeadlineContainer>
-      </PageHeaderContainer>
+      </HeaderInfoContainer>
     </div>
   );
 };
 
+export { Header };
+
 const HeaderContainer = styled.div`
   border: 1px solid black;
-  background-color: #f1f1f1;
+  background-color: #2c3e50;
   margin: 8px 0;
   height: 72px;
   width: 100%;
@@ -54,10 +68,10 @@ const HeaderContainer = styled.div`
 const HeaderText = styled.div`
   font-weight: 400;
   font-size: 44px;
-  color: #333333;
+  color: white;
 `;
 
-const PageHeaderContainer = styled.div`
+const HeaderInfoContainer = styled.div`
   width: 100%;
   height: 56px;
   gap: 8px;
@@ -70,7 +84,20 @@ const PathContainer = styled.div`
   position: absolute;
   font-size: 14px;
   color: #858585;
-  left: 104px;
+  left: 280px;
+  display: flex;
+`;
+
+const PathSegment = styled.div`
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const Separator = styled.span`
+  margin: 0 4px;
 `;
 
 const HeadlineContainer = styled.div`
@@ -79,5 +106,3 @@ const HeadlineContainer = styled.div`
   font-size: 28px;
   text-align: center;
 `;
-
-export { Header };
