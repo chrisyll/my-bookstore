@@ -12,29 +12,29 @@ const useFetchSimilarBooks = (categories: string[]) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchBooks = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/assets/books.json");
-      const data = await response.json();
-
-      const filteredBooks = data.books.filter((book: Book) =>
-        book.categories.some((category) => categories.includes(category))
-      );
-
-      setSimilarBooks(filteredBooks);
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown error occured.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchBooks = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch("/assets/books.json");
+        const data = await response.json();
+
+        const filteredBooks = data.books.filter((book: Book) =>
+          book.categories.some((category) => categories.includes(category))
+        );
+
+        setSimilarBooks(filteredBooks);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Unknown error occured.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchBooks();
   }, [categories]);
 

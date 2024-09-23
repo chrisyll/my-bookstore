@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { BookPreview } from "../BookPage/BookPreview";
 import { Spinner } from "../Spinner/Spinner";
@@ -35,43 +35,24 @@ const SearchPage = () => {
 
   const dropdownFilters: Filters = getAvailableFilters();
 
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [dropdownPosition, setDropdownPosition] = useState<{
-    top: number;
-    left: number;
-  } | null>(null);
-
-  //TOGGLE VISIBILITY OF DROPDOWN && SET ITS POSITION
-  const handleShowFiltersDropdown = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const { top, left } = e.currentTarget.getBoundingClientRect();
-      setDropdownPosition({ top: top + 24, left: left });
-      setShowDropdown(!showDropdown);
-    },
-    [setDropdownPosition, setShowDropdown, showDropdown]
-  );
-
   //UPDATE ACTIVE FILTERS
-  const handleFiltersChange = useCallback(
-    (filterType: keyof Filters, value: string) => {
-      setActiveFilters((prev) => {
-        const filters = prev[filterType];
-        let updatedFilters;
+  const handleFiltersChange = (filterType: keyof Filters, value: string) => {
+    setActiveFilters((prev) => {
+      const filters = prev[filterType];
+      let updatedFilters;
 
-        if (filters.includes(value)) {
-          updatedFilters = filters.filter((filter) => filter !== value);
-        } else {
-          updatedFilters = [...filters, value];
-        }
+      if (filters.includes(value)) {
+        updatedFilters = filters.filter((filter) => filter !== value);
+      } else {
+        updatedFilters = [...filters, value];
+      }
 
-        return {
-          ...prev,
-          [filterType]: updatedFilters,
-        };
-      });
-    },
-    [setActiveFilters]
-  );
+      return {
+        ...prev,
+        [filterType]: updatedFilters,
+      };
+    });
+  };
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -88,41 +69,47 @@ const SearchPage = () => {
 
   return (
     <SearchPageContainer>
-      <DescriptionText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </DescriptionText>
-      <SearchContainer>
-        <SearchInput
-          type="search"
-          placeholder="Search . . ."
-          value={searchInput}
-          onChange={handleSearchInputChange}
+      <FiltersDropdownContainer>
+        <FiltersDropdown
+          dropdownFilters={dropdownFilters}
+          activeFilters={activeFilters}
+          onChange={handleFiltersChange}
         />
-        <FiltersContainer>
-          <FilterLabel>Filters:</FilterLabel>
-          <FilterCirclesContainer onClick={handleShowFiltersDropdown}>
-            {Object.keys(activeFilters).map((_, index) => (
-              <FilterCircle key={index} />
-            ))}
-          </FilterCirclesContainer>
-        </FiltersContainer>
-        {showDropdown && (
-          <FiltersDropdown
-            dropdownPosition={dropdownPosition}
-            dropdownFilters={dropdownFilters}
-            activeFilters={activeFilters}
-            onChange={handleFiltersChange}
+      </FiltersDropdownContainer>
+      <MainContentContainer>
+        <DescriptionText>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </DescriptionText>
+        <SearchContainer>
+          <SearchInput
+            type="search"
+            placeholder="Search . . ."
+            value={searchInput}
+            onChange={handleSearchInputChange}
           />
-        )}
-      </SearchContainer>
-      <ItemsContainer>
-        {filteredBooks.map((book, index) => (
-          <BookItem key={index}>
-            <BookPreview showRating book={book} />
-          </BookItem>
-        ))}
-      </ItemsContainer>
+          <ActiveFiltersContainer>
+            <FilterChipsContainer>
+              {activeFilters.category.map((filter) => (
+                <FilterChip>{filter}</FilterChip>
+              ))}
+              {activeFilters.year.map((filter) => (
+                <FilterChip>{filter}</FilterChip>
+              ))}
+              {activeFilters.publisher.map((filter) => (
+                <FilterChip>{filter}</FilterChip>
+              ))}
+            </FilterChipsContainer>
+          </ActiveFiltersContainer>
+        </SearchContainer>
+        <ItemsContainer>
+          {filteredBooks.map((book, index) => (
+            <BookItem key={index}>
+              <BookPreview showRating book={book} />
+            </BookItem>
+          ))}
+        </ItemsContainer>
+      </MainContentContainer>
     </SearchPageContainer>
   );
 };
@@ -130,11 +117,21 @@ const SearchPage = () => {
 export { SearchPage };
 
 const SearchPageContainer = styled.div`
-  padding: 0 80px;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+`;
+
+const FiltersDropdownContainer = styled.div`
+  position: absolute;
+  left: 0;
+`;
+
+const MainContentContainer = styled.div`
+  width: 50%;
 `;
 
 const DescriptionText = styled.div`
@@ -157,42 +154,45 @@ const SearchInput = styled.input`
   border: 1px solid black;
   text-align: center;
   font-size: 18px;
+  box-sizing: border-box;
 
   &::placeholder {
     color: #dbdbdb;
   }
 `;
 
-const FiltersContainer = styled.div`
+const ActiveFiltersContainer = styled.div`
   display: flex;
   gap: 8px;
   margin-top: 16px;
   padding-left: 8px;
-  position: relative;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
-const FilterLabel = styled.span`
-  font-size: 18px;
-`;
-
-const FilterCirclesContainer = styled.div`
+const FilterChipsContainer = styled.div`
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  cursor: pointer;
 `;
 
-const FilterCircle = styled.div`
-  border: 1px solid black;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+const FilterChip = styled.div`
+  max-width: 140px;
+  height: 24px;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  background-color: #dbdbdb;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
 `;
 
 const ItemsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  column-gap: 16px;
-  row-gap: 32px;
+  column-gap: 24px;
+  row-gap: 40px;
   margin-top: 64px;
   margin-bottom: 32px;
 `;

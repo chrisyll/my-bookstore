@@ -9,12 +9,13 @@ const Footer = () => {
   return <FooterContainer />;
 };
 
+export { Footer };
+
 const FooterContainer = styled.div`
   border: 1px solid black;
-  background-color: #f1f1f1;
+  background-color: #2c3e50;
   margin: 8px 0;
   height: 96px;
   width: 100%;
+  box-sizing: border-box;
 `;
-
-export { Footer };

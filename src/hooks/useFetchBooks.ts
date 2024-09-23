@@ -24,23 +24,24 @@ const useFetchBooks = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchBooks = async () => {
-    try {
-      const response = await fetch("/assets/books.json");
-
-      const data = await response.json();
-      setBooks(data.books);
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown error occured.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch("/assets/books.json");
+
+        const data = await response.json();
+        setBooks(data.books);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Unknown error occured.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchBooks();
   }, []);
 

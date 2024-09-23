@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { FilterType, Filters } from "../../utils/filters";
 
 interface FiltersDropdownProps {
-  /** Position of the dropdown menu*/
-  dropdownPosition: { top: number; left: number } | null;
-
   /** Object containing the available filters for each filter type */
   dropdownFilters: Filters;
 
@@ -22,18 +19,12 @@ interface FiltersDropdownProps {
  * @returns {JSX.Element}
  */
 const FiltersDropdown = ({
-  dropdownPosition,
   dropdownFilters,
   activeFilters,
   onChange,
 }: FiltersDropdownProps) => {
   return (
-    <DropdownContainer
-      style={{
-        top: dropdownPosition?.top,
-        left: dropdownPosition?.left,
-      }}
-    >
+    <DropdownContainer>
       {Object.entries(dropdownFilters).map(([filterType, options]) => (
         <DropdownSection key={filterType}>
           <DropdownHeader>
@@ -61,14 +52,9 @@ const FiltersDropdown = ({
 export { FiltersDropdown };
 
 const DropdownContainer = styled.div`
-  position: absolute;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-right: 1px solid #ccc;
   padding: 10px;
-  z-index: 1000;
-  max-height: 300px;
   overflow-y: auto;
   width: 240px;
 `;
