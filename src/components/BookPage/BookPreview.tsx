@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Book } from "../../hooks/useFetchBooks";
-import { RatingStars } from "../RatingStars/RatingStars";
-import { BookImageContainer } from "./BookImageContainer";
+import { Book } from "@/hooks/useFetchBooks";
+import { RatingStars } from "@/components/RatingStars/RatingStars";
+import { BookImageContainer } from "@/components/BookPage/BookImageContainer";
 
 interface BookPreviewProps {
   /** The book data displayed in the preview */

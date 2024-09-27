@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FilterType, Filters } from "../../utils/filters";
+import { FilterType, Filters } from "@/utils/filters";
 
 interface FiltersDropdownProps {
   /** Object containing the available filters for each filter type */
