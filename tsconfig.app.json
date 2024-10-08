@@ -21,10 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Absolute imports */
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"]
-    }
+    "baseUrl": "./src"
   },
   "include": ["src"]
 }

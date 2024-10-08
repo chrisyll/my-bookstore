@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Book } from "@/hooks/useFetchBooks";
+import { Book } from "hooks/useFetchBooks";
 
 /**
  * Custom hook to fetch all books with similar categories

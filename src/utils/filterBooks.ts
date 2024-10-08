@@ -1,5 +1,5 @@
 import { Filters } from "./filters";
-import { Book } from "@/hooks/useFetchBooks";
+import { Book } from "hooks/useFetchBooks";
 
 /**
  * Filters a list of books based on search input and active filters

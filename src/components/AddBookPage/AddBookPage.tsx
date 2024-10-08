@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AddBookForm } from "@/components/AddBookPage/AddBookForm";
+import { AddBookForm } from "components/AddBookPage/AddBookForm";
 
 /**
  * Represents a Form wrapper component

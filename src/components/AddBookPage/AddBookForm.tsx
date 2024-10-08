@@ -1,8 +1,8 @@
 import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
 import styled from "styled-components";
-import { BookSchema } from "@/utils/bookSchema";
+import { BookSchema } from "utils/bookSchema";
 import { useRef } from "react";
-import crossIcon from "@/images/circle_outline_cross.png";
+import crossIcon from "images/circle_outline_cross.png";
 
 /**
  * Represents a form component to add a new book
