@@ -21,7 +21,9 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Absolute imports */
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+
+    "types": ["vitest/globals"]
   },
   "include": ["src"]
 }
