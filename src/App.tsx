@@ -1,11 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Header } from "components/Header/Header";
-import { Footer } from "components/Footer/Footer";
+import { Header } from "components/shared/Header";
+import { Footer } from "components/shared/Footer";
 import styled from "styled-components";
-import { SearchPage } from "components/SearchPage/SearchPage";
-import { AddBookPage } from "components/AddBookPage/AddBookPage";
-import { BookPage } from "components/BookPage/BookPage";
-import { UnderConstructionPage } from "components/UnderConstructionPage/UnderConstructionPage";
+import { SearchPage } from "components/search-page/SearchPage";
+import { AddBookPage } from "components/add-book-page/AddBookPage";
+import { BookPage } from "components/book-page/BookPage";
+import { UnderConstructionPage } from "components/shared/UnderConstructionPage";
 
 const App = () => {
   return (

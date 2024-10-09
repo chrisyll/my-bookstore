@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { BookPreview } from "components/BookPage/BookPreview";
-import { Spinner } from "components/Spinner/Spinner";
-import { ErrorMessage } from "components/ErrorMessage/ErrorMessage";
+import { BookPreview } from "components/book-page/BookPreview";
+import { Spinner } from "components/shared/Spinner";
+import { ErrorMessage } from "components/shared/ErrorMessage";
 import { Filters, getAvailableFilters } from "utils/filters";
-import { FiltersDropdown } from "components/SearchPage/FiltersDropdown";
+import { FiltersDropdown } from "components/search-page/FiltersDropdown";
 import { filterBooks } from "utils/filterBooks";
 import { useFetchBooks } from "hooks/useFetchBooks";
 

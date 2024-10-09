@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import authorIcon from "images/author_icon.png";
-import { BooksCarousel } from "components/BooksCarousel/BooksCarousel";
+import { BooksCarousel } from "components/books-carousel/BooksCarousel";
 import { useFetchSimilarBooks } from "hooks/useFetchSimilarBooks";
-import { ErrorMessage } from "components/ErrorMessage/ErrorMessage";
-import { Spinner } from "components/Spinner/Spinner";
+import { ErrorMessage } from "components/shared/ErrorMessage";
+import { Spinner } from "components/shared/Spinner";
 import { useFetchBook } from "hooks/useFetchBook";
-import { RatingStars } from "components/RatingStars/RatingStars";
-import { BookImageContainer } from "components/BookPage/BookImageContainer";
+import { RatingStars } from "components/shared/RatingStars";
+import { BookImageContainer } from "components/book-page/BookImageContainer";
 
 /**
  * Represents a component that displays detailed information about

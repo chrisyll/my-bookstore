@@ -2,7 +2,7 @@ import AliceCarousel from "react-alice-carousel";
 
 import "react-alice-carousel/lib/alice-carousel.css";
 import { Book } from "hooks/useFetchBooks";
-import { BookPreview } from "components/BookPage/BookPreview";
+import { BookPreview } from "components/book-page/BookPreview";
 import styled from "styled-components";
 import { useState } from "react";
 
