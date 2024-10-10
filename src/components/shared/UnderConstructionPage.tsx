@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 const UnderConstructionPage = () => {
   return (
-    <MessageContainer>Sorry! Page is under construction!</MessageContainer>
+    <MessageContainer data-testid="app-under-construction-page">
+      Sorry! Page is under construction!
+    </MessageContainer>
   );
 };
 

@@ -6,7 +6,7 @@ import styled from "styled-components";
  * @returns {JSX.Element}
  */
 const Footer = () => {
-  return <FooterContainer />;
+  return <FooterContainer data-testid="app-footer" />;
 };
 
 export { Footer };

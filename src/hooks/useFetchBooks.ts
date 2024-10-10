@@ -20,7 +20,7 @@ interface Book {
  * @returns  {Object} - The books, loading status, and error message
  */
 const useFetchBooks = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

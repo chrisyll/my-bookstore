@@ -25,7 +25,7 @@ const Header = () => {
     }
   };
   return (
-    <div>
+    <div data-testid="app-header">
       <HeaderContainer>
         <HeaderText>Bookstore</HeaderText>
       </HeaderContainer>

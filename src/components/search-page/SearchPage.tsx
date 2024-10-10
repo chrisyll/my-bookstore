@@ -68,7 +68,7 @@ const SearchPage = () => {
   }
 
   return (
-    <SearchPageContainer>
+    <SearchPageContainer data-testid="app-search-page">
       <FiltersDropdownContainer>
         <FiltersDropdown
           dropdownFilters={dropdownFilters}
