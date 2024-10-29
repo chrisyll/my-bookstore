@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { BookSchema } from "utils/bookSchema";
 import { useRef } from "react";
 import crossIcon from "images/circle_outline_cross.png";
+import { cleanAndConvertToNumber, FormValues } from "utils/formHandlers";
+
+interface AddBookFormProps {
+  onSubmit: (values: FormValues) => void;
+}
 
 /**
  * Represents a form component to add a new book
@@ -10,7 +15,7 @@ import crossIcon from "images/circle_outline_cross.png";
  *
  * @returns {JSX.element}
  */
-const AddBookForm = () => {
+const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
   //STORE FIELD ARRAY PROPS
   const arrayHelpersRef = useRef<any>(null);
 
@@ -23,10 +28,10 @@ const AddBookForm = () => {
     categories: [""],
     author: [""],
     publisher: "",
-    year: "",
-    pages: "",
+    published: 0,
+    pages: 0,
     image: null,
-    rating: "",
+    rating: 0,
     isbn10: "",
     isbn13: "",
   };
@@ -37,9 +42,7 @@ const AddBookForm = () => {
         forms: [formInitialValues],
       }}
       validationSchema={BookSchema}
-      onSubmit={(values) => {
-        console.log("Form submitted with values: ", values);
-      }}
+      onSubmit={onSubmit}
     >
       {({ values, setFieldValue, handleSubmit, isValid, dirty }) => (
         <StyledForm onSubmit={handleSubmit}>
@@ -64,6 +67,7 @@ const AddBookForm = () => {
                               <Field
                                 name={`forms[${index}].title`}
                                 type="text"
+                                id={`forms[${index}].title`}
                               />
                               <ErrorMessage
                                 component="div"
@@ -83,6 +87,7 @@ const AddBookForm = () => {
                               <Field
                                 name={`forms[${index}].description`}
                                 type="text"
+                                id={`forms[${index}].description`}
                               />
                               <ErrorMessage
                                 component="div"
@@ -95,13 +100,16 @@ const AddBookForm = () => {
 
                         <FormField>
                           <FlexContainer>
-                            <label>Categories:</label>
+                            <label htmlFor={`forms[${index}].categories[${0}]`}>
+                              Categories:
+                            </label>
                             <RelativeContainer>
                               {form.categories.map((_, catIndex) => (
                                 <InputContainer key={catIndex}>
                                   <Field
                                     name={`forms[${index}].categories[${catIndex}]`}
                                     placeholder={`Category ${catIndex + 1}`}
+                                    id={`forms[${index}].categories[${catIndex}]`}
                                   />
                                   <ErrorMessage
                                     component="div"
@@ -137,13 +145,16 @@ const AddBookForm = () => {
 
                         <FormField>
                           <FlexContainer>
-                            <label>Authors:</label>
+                            <label htmlFor={`forms[${index}].author[${0}]`}>
+                              Authors:
+                            </label>
                             <RelativeContainer>
                               {form.author.map((_, authIndex) => (
                                 <InputContainer key={authIndex}>
                                   <Field
                                     name={`forms[${index}].author[${authIndex}]`}
                                     placeholder={`Author ${authIndex + 1}`}
+                                    id={`forms[${index}].author[${authIndex}]`}
                                   />
                                   <ErrorMessage
                                     component="div"
@@ -184,6 +195,7 @@ const AddBookForm = () => {
                               <Field
                                 name={`forms[${index}].publisher`}
                                 type="text"
+                                id={`forms[${index}].publisher`}
                               />
                               <ErrorMessage
                                 component="div"
@@ -196,18 +208,29 @@ const AddBookForm = () => {
 
                         <FormField>
                           <FlexContainer>
-                            <label htmlFor={`forms[${index}].year`}>
+                            <label htmlFor={`forms[${index}].published`}>
                               Year:
                             </label>
                             <EndAlignedContainer>
-                              <NumberInput
-                                name={`forms[${index}].year`}
-                                type="number"
+                              <FieldSmall
+                                name={`forms[${index}].published`}
+                                id={`forms[${index}].published`}
+                                value={
+                                  form.published === 0 ? "" : form.published
+                                }
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  setFieldValue(
+                                    `forms[${index}].published`,
+                                    cleanAndConvertToNumber(e.target.value)
+                                  );
+                                }}
                               />
                               <ErrorMessage
                                 component="div"
                                 className="error"
-                                name={`forms[${index}].year`}
+                                name={`forms[${index}].published`}
                               />
                             </EndAlignedContainer>
                           </FlexContainer>
@@ -219,9 +242,18 @@ const AddBookForm = () => {
                               Page Numbers:
                             </label>
                             <EndAlignedContainer>
-                              <NumberInput
+                              <FieldSmall
                                 name={`forms[${index}].pages`}
-                                type="number"
+                                id={`forms[${index}].pages`}
+                                value={form.pages === 0 ? "" : form.pages}
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  setFieldValue(
+                                    `forms[${index}].pages`,
+                                    cleanAndConvertToNumber(e.target.value)
+                                  );
+                                }}
                               />
                               <ErrorMessage
                                 component="div"
@@ -255,14 +287,17 @@ const AddBookForm = () => {
                           </HiddenLabel>
                           <ImageInput
                             name={`forms[${index}].image`}
+                            id={`forms[${index}].image`}
                             type="file"
                             accept=".jpg, .jpeg, .png, .gif"
                             ref={imageInputRef}
-                            onChange={(event) => {
-                              if (event.target.files?.[0]) {
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              if (e.target.files?.[0]) {
                                 setFieldValue(
                                   `forms[${index}].image`,
-                                  event.target.files[0]
+                                  e.target.files[0]
                                 );
                               }
                             }}
@@ -280,9 +315,18 @@ const AddBookForm = () => {
                               Rating:
                             </label>
                             <InputContainer>
-                              <NumberInput
+                              <FieldSmall
                                 name={`forms[${index}].rating`}
-                                type="number"
+                                id={`forms[${index}].rating`}
+                                value={form.rating === 0 ? "" : form.rating}
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  setFieldValue(
+                                    `forms[${index}].rating`,
+                                    cleanAndConvertToNumber(e.target.value)
+                                  );
+                                }}
                               />
                               <ErrorMessage
                                 component="div"
@@ -302,6 +346,7 @@ const AddBookForm = () => {
                               <Field
                                 name={`forms[${index}].isbn10`}
                                 type="text"
+                                id={`forms[${index}].isbn10`}
                               />
                               <ErrorMessage
                                 component="div"
@@ -321,6 +366,7 @@ const AddBookForm = () => {
                               <Field
                                 name={`forms[${index}].isbn13`}
                                 type="text"
+                                id={`forms[${index}].isbn13`}
                               />
                               <ErrorMessage
                                 component="div"
@@ -393,7 +439,7 @@ const FormField = styled.div`
   }
 `;
 
-const NumberInput = styled(Field)`
+const FieldSmall = styled(Field)`
   width: 40px;
 `;
 

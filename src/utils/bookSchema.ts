@@ -27,7 +27,7 @@ const BookSchema = Yup.object().shape({
         .min(5, "Publisher must be at least 5 characters")
         .max(60, "Publisher cannot exceed 60 characters")
         .required("Publisher is required"),
-      year: Yup.number()
+      published: Yup.number()
         .required("Year is required")
         .min(1000, "Year must be a 4-digit number")
         .max(9999, "Year must be a 4-digit number"),

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AddBookForm } from "components/add-book-page/AddBookForm";
+import { formSubmitHandler } from "utils/formHandlers";
 
 /**
  * Represents a Form wrapper component
@@ -9,7 +10,7 @@ import { AddBookForm } from "components/add-book-page/AddBookForm";
 const AddBookPage = () => {
   return (
     <AddBookPageContainer>
-      <AddBookForm />
+      <AddBookForm onSubmit={formSubmitHandler} />
     </AddBookPageContainer>
   );
 };
