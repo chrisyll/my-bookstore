@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BookSchema } from "utils/bookSchema";
 import { useRef } from "react";
 import crossIcon from "images/circle_outline_cross.png";
-import { cleanAndConvertToNumber, FormValues } from "utils/formHandlers";
+import { parseToNumber, FormValues } from "utils/formHandlers";
 
 interface AddBookFormProps {
   onSubmit: (values: FormValues) => void;
@@ -223,7 +223,7 @@ const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
                                 ) => {
                                   setFieldValue(
                                     `forms[${index}].published`,
-                                    cleanAndConvertToNumber(e.target.value)
+                                    parseToNumber(e.target.value)
                                   );
                                 }}
                               />
@@ -251,7 +251,7 @@ const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
                                 ) => {
                                   setFieldValue(
                                     `forms[${index}].pages`,
-                                    cleanAndConvertToNumber(e.target.value)
+                                    parseToNumber(e.target.value)
                                   );
                                 }}
                               />
@@ -324,7 +324,7 @@ const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
                                 ) => {
                                   setFieldValue(
                                     `forms[${index}].rating`,
-                                    cleanAndConvertToNumber(e.target.value)
+                                    parseToNumber(e.target.value)
                                   );
                                 }}
                               />

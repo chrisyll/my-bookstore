@@ -18,9 +18,9 @@ const formSubmitHandler = (values: FormValues) => {
   console.log("Form submitted with: ", values);
 };
 
-const cleanAndConvertToNumber = (input: string): number => {
+const parseToNumber = (input: string): number => {
   const cleanedValue = input.replace(/[^0-9]/g, "");
   return cleanedValue ? Number(cleanedValue) : 0;
 };
 
-export { formSubmitHandler, cleanAndConvertToNumber, type FormValues };
+export { formSubmitHandler, parseToNumber, type FormValues };
