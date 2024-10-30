@@ -89,6 +89,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 180px;
+  margin-bottom: 4px;
 `;
 
 const RelativeContainer = styled.div`

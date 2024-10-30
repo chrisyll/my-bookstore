@@ -16,11 +16,11 @@ const BookSchema = Yup.object().shape({
         .matches(/^[A-Z]/, "Description must start with an uppercase letter")
         .required("Description is required"),
       categories: Yup.array()
-        .of(Yup.string().required("Category is required"))
+        .of(Yup.string().required("Category cannot be empty"))
         .min(1, "Category is required")
         .max(4, "You can only add up to 4 categories"),
       authors: Yup.array()
-        .of(Yup.string().required("Author is required"))
+        .of(Yup.string().required("Author cannot be empty"))
         .min(1, "Author is required")
         .max(3, "You can only add up to 3 authors"),
       publisher: Yup.string()
