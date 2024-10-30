@@ -1,11 +1,15 @@
-import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
+import { Formik, ErrorMessage, Form, FieldArray } from "formik";
 import styled from "styled-components";
 import { BookSchema } from "utils/bookSchema";
 import { useRef } from "react";
 import crossIcon from "images/circle_outline_cross.png";
 import { parseToNumber, FormValues } from "utils/formHandlers";
+import { StringFormFieldComponent } from "components/add-book-page/StringFormFieldComponent";
+import { NumFormFieldComponent } from "components/add-book-page/NumFormFieldComponent";
+import { ArrayFormFieldComponent } from "components/add-book-page/ArrayFormFieldComponent";
 
 interface AddBookFormProps {
+  /** Function called when form is submitted */
   onSubmit: (values: FormValues) => void;
 }
 
@@ -13,6 +17,7 @@ interface AddBookFormProps {
  * Represents a form component to add a new book
  * Allows multiple books to be added
  *
+ * @param {AddBookFormProps} props - The properties for the AddBookForm component
  * @returns {JSX.element}
  */
 const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
@@ -26,7 +31,7 @@ const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
     title: "",
     description: "",
     categories: [""],
-    author: [""],
+    authors: [""],
     publisher: "",
     published: 0,
     pages: 0,
@@ -58,213 +63,73 @@ const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
                   {values.forms.map((form, index) => (
                     <FormContainer key={index}>
                       <Column>
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].title`}>
-                              Title:
-                            </label>
-                            <InputContainer>
-                              <Field
-                                name={`forms[${index}].title`}
-                                type="text"
-                                id={`forms[${index}].title`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].title`}
-                              />
-                            </InputContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].description`}>
-                              Description:
-                            </label>
-                            <InputContainer>
-                              <Field
-                                name={`forms[${index}].description`}
-                                type="text"
-                                id={`forms[${index}].description`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].description`}
-                              />
-                            </InputContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].categories[${0}]`}>
-                              Categories:
-                            </label>
-                            <RelativeContainer>
-                              {form.categories.map((_, catIndex) => (
-                                <InputContainer key={catIndex}>
-                                  <Field
-                                    name={`forms[${index}].categories[${catIndex}]`}
-                                    placeholder={`Category ${catIndex + 1}`}
-                                    id={`forms[${index}].categories[${catIndex}]`}
-                                  />
-                                  <ErrorMessage
-                                    component="div"
-                                    className="error"
-                                    name={`forms[${index}].categories[${catIndex}]`}
-                                  />
-                                </InputContainer>
-                              ))}
-
-                              {form.categories.length < 4 && (
-                                <AddButton
-                                  type="button"
-                                  onClick={() => {
-                                    if (form.categories.length < 4) {
-                                      setFieldValue(
-                                        `forms[${index}].categories`,
-                                        [...form.categories, ""]
-                                      );
-                                    }
-                                  }}
-                                  disabled={
-                                    form.categories[
-                                      form.categories.length - 1
-                                    ] === ""
-                                  }
-                                >
-                                  +
-                                </AddButton>
-                              )}
-                            </RelativeContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].author[${0}]`}>
-                              Authors:
-                            </label>
-                            <RelativeContainer>
-                              {form.author.map((_, authIndex) => (
-                                <InputContainer key={authIndex}>
-                                  <Field
-                                    name={`forms[${index}].author[${authIndex}]`}
-                                    placeholder={`Author ${authIndex + 1}`}
-                                    id={`forms[${index}].author[${authIndex}]`}
-                                  />
-                                  <ErrorMessage
-                                    component="div"
-                                    className="error"
-                                    name={`forms[${index}].author[${authIndex}]`}
-                                  />
-                                </InputContainer>
-                              ))}
-
-                              {form.author.length < 3 && (
-                                <AddButton
-                                  type="button"
-                                  onClick={() => {
-                                    if (form.author.length < 3) {
-                                      setFieldValue(`forms[${index}].author`, [
-                                        ...form.author,
-                                        "",
-                                      ]);
-                                    }
-                                  }}
-                                  disabled={
-                                    form.author[form.author.length - 1] === ""
-                                  }
-                                >
-                                  +
-                                </AddButton>
-                              )}
-                            </RelativeContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].publisher`}>
-                              Publisher:
-                            </label>
-                            <InputContainer>
-                              <Field
-                                name={`forms[${index}].publisher`}
-                                type="text"
-                                id={`forms[${index}].publisher`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].publisher`}
-                              />
-                            </InputContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].published`}>
-                              Year:
-                            </label>
-                            <EndAlignedContainer>
-                              <FieldSmall
-                                name={`forms[${index}].published`}
-                                id={`forms[${index}].published`}
-                                value={
-                                  form.published === 0 ? "" : form.published
-                                }
-                                onChange={(
-                                  e: React.ChangeEvent<HTMLInputElement>
-                                ) => {
-                                  setFieldValue(
-                                    `forms[${index}].published`,
-                                    parseToNumber(e.target.value)
-                                  );
-                                }}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].published`}
-                              />
-                            </EndAlignedContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].pages`}>
-                              Page Numbers:
-                            </label>
-                            <EndAlignedContainer>
-                              <FieldSmall
-                                name={`forms[${index}].pages`}
-                                id={`forms[${index}].pages`}
-                                value={form.pages === 0 ? "" : form.pages}
-                                onChange={(
-                                  e: React.ChangeEvent<HTMLInputElement>
-                                ) => {
-                                  setFieldValue(
-                                    `forms[${index}].pages`,
-                                    parseToNumber(e.target.value)
-                                  );
-                                }}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].pages`}
-                              />
-                            </EndAlignedContainer>
-                          </FlexContainer>
-                        </FormField>
+                        <StringFormFieldComponent
+                          fieldPath={`forms[${index}].title`}
+                          fieldName="Title"
+                        />
+                        <StringFormFieldComponent
+                          fieldPath={`forms[${index}].description`}
+                          fieldName="Description"
+                        />
+                        <ArrayFormFieldComponent
+                          fieldPath={`forms[${index}].categories`}
+                          fieldName="Categories"
+                          itemsList={form.categories}
+                          maxLength={4}
+                          onClick={() => {
+                            if (form.categories.length < 4) {
+                              setFieldValue(`forms[${index}].categories`, [
+                                ...form.categories,
+                                "",
+                              ]);
+                            }
+                          }}
+                        />
+                        <ArrayFormFieldComponent
+                          fieldPath={`forms[${index}].authors`}
+                          fieldName="Authors"
+                          itemsList={form.authors}
+                          maxLength={3}
+                          onClick={() => {
+                            if (form.authors.length < 3) {
+                              setFieldValue(`forms[${index}].authors`, [
+                                ...form.authors,
+                                "",
+                              ]);
+                            }
+                          }}
+                        />
+                        <StringFormFieldComponent
+                          fieldPath={`forms[${index}].publisher`}
+                          fieldName="Publisher"
+                        />
+                        <NumFormFieldComponent
+                          fieldPath={`forms[${index}].published`}
+                          fieldName="Published"
+                          fieldValue={form.published}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setFieldValue(
+                              `forms[${index}].published`,
+                              parseToNumber(e.target.value)
+                            );
+                          }}
+                        />
+                        <NumFormFieldComponent
+                          fieldPath={`forms[${index}].pages`}
+                          fieldName="Pages"
+                          fieldValue={form.pages}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setFieldValue(
+                              `forms[${index}].pages`,
+                              parseToNumber(e.target.value)
+                            );
+                          }}
+                        />
                       </Column>
-
                       <Column>
                         <FormField>
                           <ImageContainer
@@ -308,74 +173,27 @@ const AddBookForm = ({ onSubmit }: AddBookFormProps) => {
                             name={`forms[${index}].image`}
                           />
                         </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].rating`}>
-                              Rating:
-                            </label>
-                            <InputContainer>
-                              <FieldSmall
-                                name={`forms[${index}].rating`}
-                                id={`forms[${index}].rating`}
-                                value={form.rating === 0 ? "" : form.rating}
-                                onChange={(
-                                  e: React.ChangeEvent<HTMLInputElement>
-                                ) => {
-                                  setFieldValue(
-                                    `forms[${index}].rating`,
-                                    parseToNumber(e.target.value)
-                                  );
-                                }}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].rating`}
-                              />
-                            </InputContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].isbn10`}>
-                              ISBN-10:
-                            </label>
-                            <InputContainer>
-                              <Field
-                                name={`forms[${index}].isbn10`}
-                                type="text"
-                                id={`forms[${index}].isbn10`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].isbn10`}
-                              />
-                            </InputContainer>
-                          </FlexContainer>
-                        </FormField>
-
-                        <FormField>
-                          <FlexContainer>
-                            <label htmlFor={`forms[${index}].isbn13`}>
-                              ISBN-13:
-                            </label>
-                            <InputContainer>
-                              <Field
-                                name={`forms[${index}].isbn13`}
-                                type="text"
-                                id={`forms[${index}].isbn13`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                className="error"
-                                name={`forms[${index}].isbn13`}
-                              />
-                            </InputContainer>
-                          </FlexContainer>
-                        </FormField>
+                        <NumFormFieldComponent
+                          fieldPath={`forms[${index}].rating`}
+                          fieldName="Rating"
+                          fieldValue={form.rating}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setFieldValue(
+                              `forms[${index}].rating`,
+                              parseToNumber(e.target.value)
+                            );
+                          }}
+                        />
+                        <StringFormFieldComponent
+                          fieldPath={`forms[${index}].isbn10`}
+                          fieldName="ISBN-10"
+                        />
+                        <StringFormFieldComponent
+                          fieldPath={`forms[${index}].isbn13`}
+                          fieldName="ISBN-13"
+                        />
                       </Column>
                     </FormContainer>
                   ))}
@@ -439,56 +257,8 @@ const FormField = styled.div`
   }
 `;
 
-const FieldSmall = styled(Field)`
-  width: 40px;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const Column = styled.div`
   width: 280px;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 180px;
-`;
-
-const RelativeContainer = styled.div`
-  position: relative;
-`;
-
-const EndAlignedContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
-
-const AddButton = styled.button`
-  background-color: #c3c3c3;
-  color: white;
-  border: none;
-  border-radius: 25%;
-  padding: 4px 8px;
-  cursor: pointer;
-  right: 0;
-
-  &:hover {
-    background-color: #afafaf;
-  }
-
-  &:disabled {
-    cursor: default;
-    background-color: #e0e0e0;
-  }
-
-  &:disabled:hover {
-    background-color: #e0e0e0;
-  }
 `;
 
 const ImageContainer = styled.div`

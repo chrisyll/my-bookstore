@@ -19,7 +19,7 @@ const BookSchema = Yup.object().shape({
         .of(Yup.string().required("Category is required"))
         .min(1, "Category is required")
         .max(4, "You can only add up to 4 categories"),
-      author: Yup.array()
+      authors: Yup.array()
         .of(Yup.string().required("Author is required"))
         .min(1, "Author is required")
         .max(3, "You can only add up to 3 authors"),

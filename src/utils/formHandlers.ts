@@ -3,7 +3,7 @@ type FormValues = {
     title: string;
     description: string;
     categories: string[];
-    author: string[];
+    authors: string[];
     publisher: string;
     published: number;
     pages: number;
