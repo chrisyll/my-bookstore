@@ -24,8 +24,8 @@ describe("AddBookForm test", () => {
     await user.type(screen.getByLabelText(/Categories:/i), "Fiction");
     await user.type(screen.getByLabelText(/Authors:/i), "John Doe");
     await user.type(screen.getByLabelText(/Publisher:/i), "Test Publisher");
-    await user.type(screen.getByLabelText(/Year:/i), "2023");
-    await user.type(screen.getByLabelText(/Page Numbers:/i), "300");
+    await user.type(screen.getByLabelText(/Published:/i), "2023");
+    await user.type(screen.getByLabelText(/Pages:/i), "300");
     await user.type(screen.getByLabelText(/Rating:/i), "4");
     await user.type(screen.getByLabelText(/ISBN-10:/i), "1234567890");
     await user.type(screen.getByLabelText(/ISBN-13:/i), "1234567890123");
@@ -45,7 +45,7 @@ describe("AddBookForm test", () => {
               title: "Test Book 1",
               description: "A test description",
               categories: ["Fiction"],
-              author: ["John Doe"],
+              authors: ["John Doe"],
               publisher: "Test Publisher",
               published: 2023,
               pages: 300,
